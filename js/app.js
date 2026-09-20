@@ -60,7 +60,7 @@ function seedProducts(){
   const P=(id,name,category,type,price,was,desc,colors,sizes,stock,rating,tags)=>
     ({id,name,category,type,price,was,desc,colors,sizes,stock,rating,tags:tags||[],reviews:[],img:PRODUCT_IMG[id]||null});
   return [
-    P('P-1001','Chikankari Lawn Kurta','Women','kurta',4200,5600,'Hand-embroidered chikankari on breathable summer lawn. Straight cut with side slits and a boat neckline that sits well under a shawl.',[['Ivory','#EFE7D8'],['Mint','#CFE0D2'],['Powder blue','#C9D8E8']],['XS','S','M','L','XL'],14,4.6,['new','sale']),
+    P('P-1001',' Lawn Kurta','Women','kurta',4200,5600,'Hand-embroidered c on breathable summer lawn. Straight cut with side slits and a boat neckline that sits well under a shawl.',[['Ivory','#EFE7D8'],['Mint','#CFE0D2'],['Powder blue','#C9D8E8']],['XS','S','M','L','XL'],14,4.6,['new','sale']),
     P('P-1002','Block-print Cotton Dress','Women','dress',5400,null,'Ajrak-inspired block print on mid-weight cotton. Gathered waist, full lining and functional side pockets.',[['Indigo','#2E3F6E'],['Madder red','#9E3446']],['S','M','L','XL'],9,4.4,['new']),
     P('P-1003','Silk Blend Dupatta','Women','scarf',2300,null,'Two and a half metres of silk-blend voile with a hand-rolled edge. Light enough for summer, wide enough to drape.',[['Gold','#D9A63C'],['Rose','#C9788A'],['Black','#22242C']],['One size'],26,4.2,[]),
     P('P-1004','Embroidered Party Gown','Women','dress',12800,15900,'Floor-length gown in georgette with sequin work across the bodice. Concealed zip and inner lining.',[['Emerald','#1F5C4A'],['Wine','#6B2436']],['S','M','L'],4,4.8,['sale']),
@@ -120,7 +120,7 @@ function seedDB(){
     ],
     orders:[
       {id:'ORD-24051',trackingId:'FF7QK2M',userId:'U-0002',
-       items:[{productId:'P-1001',name:'Chikankari Lawn Kurta',size:'M',color:'Mint',qty:1,price:4200}],
+       items:[{productId:'P-1001',name:' Lawn Kurta',size:'M',color:'Mint',qty:1,price:4200}],
        subtotal:4200,delivery:{label:'Standard delivery',fee:200},payment:'Cash on delivery',
        shipping:{name:'Ayesha Siddiqui',phone:'0312-4567890',address:'House 12, Satellite Town',city:'Bahawalpur',postal:'63100'},
        total:4400,status:'Delivered',date:daysAgo(11)}
