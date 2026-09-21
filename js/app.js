@@ -6,7 +6,7 @@
    ============================================================ */
 
 /* ---------- 1. STORAGE (localStorage, per the local-host constraint) ---------- */
-const KEY='ff_store_v4';
+const KEY='ff_store_v7';
 let DB=null, S={view:'home', params:{}, adminTab:'dash', toastId:0};
 
 function save(){ try{ localStorage.setItem(KEY, JSON.stringify(DB)); }catch(e){ /* private mode: run in memory */ } }
@@ -17,66 +17,61 @@ function load(){
 
 /* ---------- 2. SEED DATA (Products / Users / Orders / Reviews) ---------- */
 const CATEGORIES=[
-  {name:'Women',  blurb:'Kurtas, dresses, co-ords',      img:'1596783074918-c84cb06531ca'},
-  {name:'Men',    blurb:'Shirts, kameez, denim',         img:'1520975916090-3105956dac38'},
-  {name:'Kids',   blurb:'Everyday and party wear',       img:'1621452773781-0f992fd1f5cb'},
-  {name:'Footwear',blurb:'Khussa, sneakers, sandals',    img:'1560343090-f0409e92791a'},
-  {name:'Accessories',blurb:'Bags, shawls, watches',     img:'1524805444758-089113d48a6d'}
+  {name:'Women',  blurb:'Kurtas, dresses, co-ords',      img:'categories/women.jpg'},
+  {name:'Men',    blurb:'Shirts, kameez, denim',         img:'categories/men.jpg'},
+  {name:'Kids',   blurb:'Everyday and party wear',       img:'categories/kids.jpg'},
+  {name:'Footwear',blurb:'Khussa, sneakers, sandals',    img:'categories/footwear.jpg'},
+  {name:'Accessories',blurb:'Bags, shawls, watches',     img:'categories/accessories.jpg'}
 ];
 
-/* Curated, verified Unsplash photography — one distinct image per product. */
+/* Local product photography — drop a file at images/products/<id>.<ext> and
+   update the path below to swap the placeholder for the real photo. */
 const PRODUCT_IMG={
-  'P-1001':'1610030469983-98e550d6193c',
-  'P-1002':'1591369822096-ffd140ec948f',
-  'P-1003':'1509319117193-57bab727e09d',
-  'P-1004':'1495385794356-15371f348c31',
-  'P-1005':'1608234808654-2a8875faa7fd',
-  'P-1006':'1554568218-0f1715e72254',
-  'P-2001':'1598033129183-c4f50c736f10',
-  'P-2002':'1603252109303-2751441dd157',
-  'P-2003':'1541099649105-f69ad21f3246',
-  'P-2004':'1517841905240-472988babdf9',
-  'P-2005':'1610652492500-ded49ceeb378',
-  'P-2006':'1473966968600-fa801b869a1a',
-  'P-3001':'1471286174890-9c112ffca5b4',
-  'P-3002':'1518831959646-742c3a14ebf7',
-  'P-3003':'1596870230751-ebdfce98ec42',
-  'P-3004':'1591195853828-11db59a44f6b',
-  'P-4001':'1543163521-1bf539c55dd2',
-  'P-4002':'1560769629-975ec94e6a86',
-  'P-4003':'1560343090-f0409e92791a',
-  'P-4004':'1603487742131-4160ec999306',
-  'P-5001':'1544816155-12df9643f363',
-  'P-5002':'1584030373081-f37b7bb4fa8e',
-  'P-5003':'1544441893-675973e31985',
-  'P-5004':'1524805444758-089113d48a6d',
-  'P-5005':'1594223274512-ad4803739b7c'
+  'P-1001':'products/P-1001.jpg',
+  'P-1002':'products/P-1002.jpg',
+  'P-1003':'products/P-1003.jpg',
+  'P-1005':'products/P-1005.jpg',
+  'P-1007':'products/P-1007.jpg',
+  'P-2002':'products/P-2002.jpg',
+  'P-2003':'products/P-2003.jpg',
+  'P-2004':'products/P-2004.jpg',
+  'P-2006':'products/P-2006.jpg',
+  'P-3001':'products/P-3001.jpg',
+  'P-3002':'products/P-3002.jpg',
+  'P-3003':'products/P-3003.jpg',
+  'P-3004':'products/P-3004.jpg',
+  'P-4001':'products/P-4001.jpg',
+  'P-4002':'products/P-4002.jpg',
+  'P-4003':'products/P-4003.jpg',
+  'P-4004':'products/P-4004.jpg',
+  'P-5001':'products/P-5001.jpg',
+  'P-5003':'products/P-5003.jpg',
+  'P-5004':'products/P-5004.jpg',
+  'P-5005':'products/P-5005.jpg',
+  'P-5006':'products/P-5006.jpg'
 };
-const FALLBACK_IMG='1441984904996-e0b6ba687e04';
-const HERO_IMG='1503341504253-dff4815485f1';
-const HERO_TAG_IMG='1550246140-29f40b909e5a';
+const FALLBACK_IMG='fallback.jpg';
+const HERO_IMG='hero.jpg';
+const HERO_TAG_IMG='hero-tag.jpg';
 
 function seedProducts(){
   const P=(id,name,category,type,price,was,desc,colors,sizes,stock,rating,tags)=>
     ({id,name,category,type,price,was,desc,colors,sizes,stock,rating,tags:tags||[],reviews:[],img:PRODUCT_IMG[id]||null});
   return [
-    P('P-1001',' Lawn Kurta','Women','kurta',4200,5600,'Hand-embroidered c on breathable summer lawn. Straight cut with side slits and a boat neckline that sits well under a shawl.',[['Ivory','#EFE7D8'],['Mint','#CFE0D2'],['Powder blue','#C9D8E8']],['XS','S','M','L','XL'],14,4.6,['new','sale']),
-    P('P-1002','Block-print Cotton Dress','Women','dress',5400,null,'Ajrak-inspired block print on mid-weight cotton. Gathered waist, full lining and functional side pockets.',[['Indigo','#2E3F6E'],['Madder red','#9E3446']],['S','M','L','XL'],9,4.4,['new']),
+    P('P-1001','Ladies Lawn Kurta','Women','kurta',4200,5600,'Hand detailing on breathable summer lawn. Straight cut with side slits and a boat neckline that sits well under a shawl.',[['Ivory','#EFE7D8'],['Mint','#CFE0D2'],['Powder blue','#C9D8E8']],['XS','S','M','L','XL'],14,4.6,['new','sale']),
+    P('P-1002','Cotton Dress','Women','dress',5400,null,'Ajrak-inspired block print on mid-weight cotton. Gathered waist, full lining and functional side pockets.',[['Indigo','#2E3F6E'],['Madder red','#9E3446']],['S','M','L','XL'],9,4.4,['new']),
     P('P-1003','Silk Blend Dupatta','Women','scarf',2300,null,'Two and a half metres of silk-blend voile with a hand-rolled edge. Light enough for summer, wide enough to drape.',[['Gold','#D9A63C'],['Rose','#C9788A'],['Black','#22242C']],['One size'],26,4.2,[]),
-    P('P-1004','Embroidered Party Gown','Women','dress',12800,15900,'Floor-length gown in georgette with sequin work across the bodice. Concealed zip and inner lining.',[['Emerald','#1F5C4A'],['Wine','#6B2436']],['S','M','L'],4,4.8,['sale']),
-    P('P-1005','Linen Co-ord Set','Women','kurta',7600,null,'Two-piece linen set — relaxed shirt with a matching wide-leg trouser. Pre-washed so it softens rather than shrinks.',[['Sand','#DCCFB8'],['Olive','#6E7355']],['S','M','L','XL'],11,4.3,['new']),
-    P('P-1006','Everyday Jersey Top','Women','tshirt',1900,2400,'Combed-cotton jersey with a slightly dropped shoulder. The one you reach for on a work morning.',[['White','#F2F2F0'],['Charcoal','#3A3C42'],['Terracotta','#B86A4B']],['XS','S','M','L','XL'],38,4.1,['sale']),
+    P('P-1005','Long Coat','Women','coat',7600,null,'Ankle-grazing coat in brushed wool-blend with a tie belt and deep front pockets. Layers over a kurta or a plain kameez.',[['Sand','#DCCFB8'],['Olive','#6E7355']],['S','M','L','XL'],11,4.3,['new']),
+    P('P-1007','Ladies Jackets','Women','jacket',6900,null,'Fitted denim jacket with a soft brushed lining, patch pockets and button cuffs. Wears over a kurta or a shirt.',[['Light blue','#8FAECD'],['Black','#26262C']],['S','M','L','XL'],10,4.3,[]),
 
-    P('P-2001','Wash & Wear Formal Shirt','Men','shirt',3400,null,'Poly-cotton formal shirt that comes out of the wash ready to wear. Fused collar, single cuff, regular fit.',[['White','#F4F4F2'],['Sky','#BFD3E6'],['Steel','#5B6472']],['S','M','L','XL','XXL'],32,4.5,[]),
-    P('P-2002','Cotton Kameez Shalwar','Men','kurta',5900,null,'Full suit in heavy summer cotton. Straight kameez with a mandarin collar, shalwar with a drawstring waist.',[['Off white','#EDE8DC'],['Graphite','#3B3F48'],['Sage','#7C8A72']],['M','L','XL','XXL'],17,4.7,['new']),
+    P('P-2002','Dress Shirts','Men','shirt',5900,null,'Tailored shirt in fine cotton poplin with a spread collar and a single cuff. Sits well under a waistcoat or worn open.',[['Off white','#EDE8DC'],['Graphite','#3B3F48'],['Sage','#7C8A72']],['M','L','XL','XXL'],17,4.7,['new']),
     P('P-2003','Slim Fit Denim','Men','jeans',4800,6200,'Twelve-ounce stretch denim, slim through the thigh with a mid rise. Five pocket, riveted.',[['Mid blue','#3F5A82'],['Jet black','#26272C']],['30','32','34','36','38'],21,4.2,['sale']),
-    P('P-2004','Zip-through Hoodie','Men','hoodie',5200,null,'Brushed fleece inside, flat-knit ribbing at the cuff. Two-way zip and a lined hood.',[['Navy','#243A5E'],['Heather grey','#9AA0A8'],['Maroon','#6E2B34']],['S','M','L','XL'],15,4.4,['new']),
-    P('P-2005','Waistcoat','Men','jacket',6400,null,'Structured waistcoat in suiting fabric with a satin back and adjustable strap. Wears well over a kameez.',[['Black','#222329'],['Ink','#28324D']],['S','M','L','XL'],7,4.3,[]),
-    P('P-2006','Chino Trousers','Men','trousers',3900,null,'Garment-dyed cotton twill with a touch of stretch. Straight leg, clean finish at the hem.',[['Khaki','#C2AE87'],['Navy','#2C3A56'],['Stone','#B9B4A6']],['30','32','34','36'],24,4.0,[]),
+    P('P-2004','Mens Hoodies','Men','hoodie',5200,null,'Brushed fleece inside, flat-knit ribbing at the cuff. Two-way zip and a lined hood.',[['Navy','#243A5E'],['Heather grey','#9AA0A8'],['Maroon','#6E2B34']],['S','M','L','XL'],15,4.4,['new']),
+    P('P-2006','printed Shirts','Men','trousers',3900,null,'Garment-dyed cotton twill with a touch of stretch. Straight leg, clean finish at the hem.',[['Khaki','#C2AE87'],['Navy','#2C3A56'],['Stone','#B9B4A6']],['30','32','34','36'],24,4.0,[]),
 
     P('P-3001','Kids Printed T-shirt','Kids','tshirt',1200,null,'Soft single-jersey with a water-based print that will not crack after a few washes.',[['Yellow','#E8C24A'],['Aqua','#7EC4CF'],['Coral','#E28A72']],['2Y','4Y','6Y','8Y','10Y'],44,4.5,[]),
     P('P-3002','Girls Party Frock','Kids','dress',3600,4500,'Tulle over a cotton lining so it holds its shape without scratching. Back tie sash.',[['Blush','#E9C3CB'],['Lilac','#C4B2D8']],['2Y','4Y','6Y','8Y'],12,4.6,['sale']),
-    P('P-3003','Boys Kurta Set','Kids','kurta',2900,null,'Miniature version of the grown-up cotton suit, with a pull-on shalwar for easy dressing.',[['White','#F1EFE8'],['Sea green','#7FA79A']],['2Y','4Y','6Y','8Y','10Y'],19,4.4,['new']),
+    P('P-3003','Jeans Pants','Kids','jeans',2900,null,'Soft stretch denim with an adjustable elastic waist, built for a full day of play without wearing thin at the knee.',[['Indigo','#33456E'],['Black','#2A2A2E']],['2Y','4Y','6Y','8Y','10Y'],19,4.4,['new']),
     P('P-3004','Kids Denim Jacket','Kids','jacket',3200,null,'Washed denim with metal buttons and a jersey-lined body for the cooler months.',[['Light blue','#8FAECD'],['Indigo','#33456E']],['4Y','6Y','8Y','10Y'],8,4.2,[]),
 
     P('P-4001','Hand-stitched Khussa','Footwear','sandals',3100,null,'Leather khussa stitched in Multan, with a cushioned insole added for daily wear.',[['Tan','#B4814C'],['Black','#2A2A2E'],['Gold','#C9A24A']],['36','37','38','39','40','41','42'],18,4.7,['new']),
@@ -84,11 +79,11 @@ function seedProducts(){
     P('P-4003','Leather Formal Shoes','Footwear','shoes',8900,null,'Full-grain leather derby with a leather-lined footbed and a stitched welt.',[['Brown','#6B4A31'],['Black','#232328']],['39','40','41','42','43','44'],10,4.6,[]),
     P('P-4004','Slip-on Sandals','Footwear','sandals',2200,null,'Moulded footbed with a soft strap. Rated for the heat, not for the rain.',[['Brown','#7A5B3E'],['Grey','#7C808A']],['37','38','39','40','41','42'],31,4.0,[]),
 
-    P('P-5001','Canvas Tote Bag','Accessories','bag',1800,null,'Sixteen-ounce canvas with a reinforced base and an inner pocket that fits a phone and keys.',[['Natural','#DFD6C0'],['Black','#2A2B30'],['Rust','#A5573C']],['One size'],40,4.2,[]),
-    P('P-5002','Pashmina Shawl','Accessories','scarf',6800,8200,'Fine wool blend, woven in Kashmir, with a twill weave that drapes rather than bunches.',[['Camel','#BE9A6A'],['Charcoal','#40434A'],['Plum','#6B4360']],['One size'],13,4.8,['sale']),
+    P('P-5001',' Simple Bags','Accessories','bag',1800,null,'Sixteen-ounce canvas with a reinforced base and an inner pocket that fits a phone and keys.',[['Natural','#DFD6C0'],['Black','#2A2B30'],['Rust','#A5573C']],['One size'],40,4.2,[]),
     P('P-5003','Leather Belt','Accessories','bag',2400,null,'Thirty-five millimetre full-grain strap with a brushed brass buckle.',[['Brown','#6A4A32'],['Black','#26262A']],['32','34','36','38','40'],27,4.1,[]),
-    P('P-5004','Minimal Wrist Watch','Accessories','watch',9400,null,'Thirty-eight millimetre steel case, sapphire-coated glass and a quick-release leather strap.',[['Silver','#C6C9CE'],['Rose gold','#D2A38F'],['Black','#2C2D33']],['One size'],6,4.5,['new']),
-    P('P-5005','Embroidered Clutch','Accessories','bag',3300,null,'Hand-embroidered clutch with a detachable chain, sized for a phone and a card holder.',[['Ivory','#EDE4D2'],['Teal','#2E6367']],['One size'],9,4.4,[])
+    P('P-5004','Ladies Watches','Accessories','watch',9400,null,'Slim thirty-two millimetre steel case, sapphire-coated glass and a quick-release leather strap.',[['Silver','#C6C9CE'],['Rose gold','#D2A38F'],['Black','#2C2D33']],['One size'],6,4.5,['new']),
+    P('P-5005','Hand Clutch','Accessories','bag',3300,null,'Hand clutch with a detachable chain, sized for a phone and a card holder.',[['Ivory','#EDE4D2'],['Teal','#2E6367']],['One size'],9,4.4,[]),
+    P('P-5006','Mens Watches','Accessories','watch',10800,null,'Forty-two millimetre steel case with a day-date window and a genuine leather strap.',[['Black','#2C2D33'],['Brown','#6A4A32'],['Silver','#C6C9CE']],['One size'],8,4.5,[])
   ];
 }
 
@@ -98,9 +93,7 @@ const SEED_REVIEWS=[
   ['P-2002','Bilal Ahmed',5,'Stitching is neat and the shalwar is generous. Wore it to Eid prayers.'],
   ['P-2003','Usman Tariq',4,'Good denim for the price. Slim is truly slim, size up if you are between.'],
   ['P-4001','Fatima Khalid',5,'The insole makes all the difference. Comfortable for a whole wedding.'],
-  ['P-4002','Zain Abbas',4,'Clean shape, sole is solid. Took a few days to soften.'],
-  ['P-5002','Maryam Javed',5,'Warm without weight. Worth it in December.'],
-  ['P-1006','Sana Rauf',4,'Everyday top, washes well, no shrinkage so far.']
+  ['P-4002','Zain Abbas',4,'Clean shape, sole is solid. Took a few days to soften.']
 ];
 
 function seedDB(){
@@ -120,7 +113,7 @@ function seedDB(){
     ],
     orders:[
       {id:'ORD-24051',trackingId:'FF7QK2M',userId:'U-0002',
-       items:[{productId:'P-1001',name:' Lawn Kurta',size:'M',color:'Mint',qty:1,price:4200}],
+       items:[{productId:'P-1001',name:'Ladies Lawn Kurta',size:'M',color:'Mint',qty:1,price:4200}],
        subtotal:4200,delivery:{label:'Standard delivery',fee:200},payment:'Cash on delivery',
        shipping:{name:'Ayesha Siddiqui',phone:'0312-4567890',address:'House 12, Satellite Town',city:'Bahawalpur',postal:'63100'},
        total:4400,status:'Delivered',date:daysAgo(11)}
@@ -134,21 +127,17 @@ function seedDB(){
 function daysAgo(n){const d=new Date();d.setDate(d.getDate()-n);return d.toISOString()}
 
 /* ---------- 3. PRODUCT PHOTOGRAPHY ----------
-   Real photography (Unsplash) rather than illustration, so every product,
-   the hero, the category strip and the promo banners carry a genuine image.
-   A product stores just the photo id; photoUrl() builds the sized, cropped
-   URL on demand so cards, thumbnails and full-bleed shots can each ask for
-   the right dimensions without duplicating assets. */
-function photoUrl(id,w,h,opts){
-  opts=opts||{};
-  const params=['w='+w,'h='+h,'q='+(opts.q||75),'auto=format','fit=crop','crop='+(opts.crop||'entropy')];
-  return `https://images.unsplash.com/photo-${id}?${params.join('&')}`;
+   Local images only (no external stock photography). A product stores a
+   path relative to /images/; photoUrl() resolves it to a servable URL.
+   Card and thumbnail containers are fixed-size with object-fit:cover, so
+   the same file works at every size without a resizing service. */
+function photoUrl(id){
+  return `images/${id}`;
 }
 function productImgId(p){ return (p&&p.img)||FALLBACK_IMG; }
 function imgTag(id,w,h,cls,alt,crop,eager){
-  const url=photoUrl(id,w,h,{crop});
-  const url2x=photoUrl(id,w*2,h*2,{q:65,crop});
-  return `<img class="${cls||''}" src="${url}" srcset="${url} 1x, ${url2x} 2x" loading="${eager?'eager':'lazy'}" decoding="async" alt="${esc(alt||'')}">`;
+  const url=photoUrl(id);
+  return `<img class="${cls||''}" src="${url}" loading="${eager?'eager':'lazy'}" decoding="async" alt="${esc(alt||'')}">`;
 }
 function productShot(p,w,h,cls,eager){
   return imgTag(productImgId(p),w,h,cls,p.name,'entropy',eager);
@@ -1117,7 +1106,7 @@ afterRender.support=()=>{
 /* ---------- 7. ADMIN PANEL ---------- */
 const ATABS=[['dash','Dashboard'],['products','Products'],['categories','Categories'],
              ['orders','Orders'],['customers','Customers'],['payments','Payments']];
-const PRODUCT_TYPES=['tshirt','shirt','kurta','dress','hoodie','jacket','trousers','jeans','shoes','sandals','scarf','bag','watch'];
+const PRODUCT_TYPES=['tshirt','shirt','kurta','dress','hoodie','jacket','coat','trousers','jeans','shoes','sandals','scarf','bag','watch'];
 
 function viewAdmin(){
   if(!isAdmin()){
@@ -1324,8 +1313,8 @@ function productForm(id){
     </div>
     <label class="field"><span>Stock quantity</span><input class="input" id="pfStock" type="number" min="0" value="${p?p.stock:''}"></label>
     <label class="field"><span>Description</span><textarea class="input" id="pfDesc">${p?esc(p.desc):''}</textarea></label>
-    <label class="field"><span>Image URL (optional — an Unsplash link works well)</span>
-      <input class="input" id="pfImg" placeholder="https://images.unsplash.com/photo-..." value="${p&&p.img&&p.img.startsWith('http')?esc(p.img):''}"></label>
+    <label class="field"><span>Image path or URL (optional — e.g. products/P-1234.jpg, or a full https:// link)</span>
+      <input class="input" id="pfImg" placeholder="products/P-1234.jpg" value="${p&&p.img&&p.img.startsWith('http')?esc(p.img):''}"></label>
     <label class="field"><span>Sizes, separated by commas</span><input class="input" id="pfSizes" value="${p?esc(p.sizes.join(', ')):'S, M, L, XL'}"></label>
     <label class="field"><span>Colours — name:hex, separated by commas</span>
       <input class="input" id="pfColors" value="${p?esc(p.colors.map(c=>c[0]+':'+c[1]).join(', ')):'Black:#26262C, Ivory:#EFE7D8'}"></label>
