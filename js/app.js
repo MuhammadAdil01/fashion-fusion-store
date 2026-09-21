@@ -70,7 +70,7 @@ function seedProducts(){
     P('P-2006','printed Shirts','Men','trousers',3900,null,'Garment-dyed cotton twill with a touch of stretch. Straight leg, clean finish at the hem.',[['Khaki','#C2AE87'],['Navy','#2C3A56'],['Stone','#B9B4A6']],['30','32','34','36'],24,4.0,[]),
 
     P('P-3001','Kids Printed T-shirt','Kids','tshirt',1200,null,'Soft single-jersey with a water-based print that will not crack after a few washes.',[['Yellow','#E8C24A'],['Aqua','#7EC4CF'],['Coral','#E28A72']],['2Y','4Y','6Y','8Y','10Y'],44,4.5,[]),
-    P('P-3002','Girls Party Frock','Kids','dress',3600,4500,'Tulle over a cotton lining so it holds its shape without scratching. Back tie sash.',[['Blush','#E9C3CB'],['Lilac','#C4B2D8']],['2Y','4Y','6Y','8Y'],12,4.6,['sale']),
+    P('P-3002','Kids Frock','Kids','dress',3600,4500,'Tulle over a cotton lining so it holds its shape without scratching. Back tie sash.',[['Blush','#E9C3CB'],['Lilac','#C4B2D8']],['2Y','4Y','6Y','8Y'],12,4.6,['sale']),
     P('P-3003','Jeans Pants','Kids','jeans',2900,null,'Soft stretch denim with an adjustable elastic waist, built for a full day of play without wearing thin at the knee.',[['Indigo','#33456E'],['Black','#2A2A2E']],['2Y','4Y','6Y','8Y','10Y'],19,4.4,['new']),
     P('P-3004','Kids Denim Jacket','Kids','jacket',3200,null,'Washed denim with metal buttons and a jersey-lined body for the cooler months.',[['Light blue','#8FAECD'],['Indigo','#33456E']],['4Y','6Y','8Y','10Y'],8,4.2,[]),
 
