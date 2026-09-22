@@ -63,11 +63,10 @@ function seedProducts(){
     P('P-1003','Silk Blend Dupatta','Women','scarf',2300,null,'Two and a half metres of silk-blend voile with a hand-rolled edge. Light enough for summer, wide enough to drape.',[['Gold','#D9A63C'],['Rose','#C9788A'],['Black','#22242C']],['One size'],26,4.2,[]),
     P('P-1005','Long Coat','Women','coat',7600,null,'Ankle-grazing coat in brushed wool-blend with a tie belt and deep front pockets. Layers over a kurta or a plain kameez.',[['Sand','#DCCFB8'],['Olive','#6E7355']],['S','M','L','XL'],11,4.3,['new']),
     P('P-1007','Ladies Jackets','Women','jacket',6900,null,'Fitted denim jacket with a soft brushed lining, patch pockets and button cuffs. Wears over a kurta or a shirt.',[['Light blue','#8FAECD'],['Black','#26262C']],['S','M','L','XL'],10,4.3,[]),
-
     P('P-2002','Dress Shirts','Men','shirt',5900,null,'Tailored shirt in fine cotton poplin with a spread collar and a single cuff. Sits well under a waistcoat or worn open.',[['Off white','#EDE8DC'],['Graphite','#3B3F48'],['Sage','#7C8A72']],['M','L','XL','XXL'],17,4.7,['new']),
     P('P-2003','Slim Fit Denim','Men','jeans',4800,6200,'Twelve-ounce stretch denim, slim through the thigh with a mid rise. Five pocket, riveted.',[['Mid blue','#3F5A82'],['Jet black','#26272C']],['30','32','34','36','38'],21,4.2,['sale']),
-    P('P-2004','Mens Hoodies','Men','hoodie',5200,null,'Brushed fleece inside, flat-knit ribbing at the cuff. Two-way zip and a lined hood.',[['Navy','#243A5E'],['Heather grey','#9AA0A8'],['Maroon','#6E2B34']],['S','M','L','XL'],15,4.4,['new']),
-    P('P-2006','printed Shirts','Men','trousers',3900,null,'Garment-dyed cotton twill with a touch of stretch. Straight leg, clean finish at the hem.',[['Khaki','#C2AE87'],['Navy','#2C3A56'],['Stone','#B9B4A6']],['30','32','34','36'],24,4.0,[]),
+    P('P-2004',"Men's Hoodies","Men's",'hoodie',5200,null,'Brushed fleece inside, flat-knit ribbing at the cuff. Two-way zip and a lined hood.',[['Navy', '#243A5E'],['Heather grey', '#9AA0A8'],['Maroon', '#6E2B34']],['S', 'M', 'L', 'XL'],15,4.4,['new']),
+    P('P-2006','Printed Shirts','Men','trousers',3900,null,'Garment-dyed cotton twill with a touch of stretch. Straight leg, clean finish at the hem.',[['Khaki','#C2AE87'],['Navy','#2C3A56'],['Stone','#B9B4A6']],['30','32','34','36'],24,4.0,[]),
 
     P('P-3001','Kids Printed T-shirt','Kids','tshirt',1200,null,'Soft single-jersey with a water-based print that will not crack after a few washes.',[['Yellow','#E8C24A'],['Aqua','#7EC4CF'],['Coral','#E28A72']],['2Y','4Y','6Y','8Y','10Y'],44,4.5,[]),
     P('P-3002','Kids Frock','Kids','dress',3600,4500,'Tulle over a cotton lining so it holds its shape without scratching. Back tie sash.',[['Blush','#E9C3CB'],['Lilac','#C4B2D8']],['2Y','4Y','6Y','8Y'],12,4.6,['sale']),
@@ -207,6 +206,9 @@ function render(){
 const afterRender={};
 
 function paintHeader(){
+  const back=$('#backBtn');
+  back.style.display=(S.view==='home')?'none':'inline-flex';
+  back.onclick=()=>go('home');
   const nav=$('#mainNav');
   const items=[['All products','shop',{}]].concat(DB.categories.map(c=>[c.name,'shop',{category:c.name}]));
   items.push(['Support','support',{}]);
@@ -267,7 +269,7 @@ function viewHome(){
       <div class="hero-grid">
         <div>
           <span class="hero-label">New season</span>
-          <h1>Built different.<br>Wear <span>yours</span>.</h1>
+          <h1>Built different,<br>Wear <span>yours</span>.</h1>
           <p class="lede">Streetwear-grade basics and statement pieces, picked for Bahawalpur weather. Look around without an account — you will only need one when you are ready to buy.</p>
           <div class="hero-cta">
             <button class="btn" onclick="go('shop',{})">Shop now
